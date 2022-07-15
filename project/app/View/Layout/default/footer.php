@@ -1,7 +1,7 @@
 </main>
 <footer class="container">
     <div class="grid">
-        <div><a href="#">Shorteria</a> &copy; <a href="https://mrsoft.gmbh">MR Software
+        <div><a href="https://github.com/mr-software-gmbh/shorteria">Shorteria</a> &copy; <a href="https://mrsoft.gmbh">MR Software
                 GmbH</a> <?php echo date('Y'); ?></div>
     </div>
 </footer>
