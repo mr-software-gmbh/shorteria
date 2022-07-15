@@ -1,0 +1,54 @@
+services:
+  # ######################### MARIADB #########################
+  # # PURPOSE: save data                                       #
+  # ############################################################
+  mariadb:
+    container_name: ${MARIADB_NAME}
+    hostname: ${MARIADB_NAME}
+    build: ${MARIADB_BUILD}
+    volumes:
+      - ${MARIADB_DATA}:/var/lib/mysql
+      - ${LOCALTIME}
+      - ${TIMEZONE}
+    networks:
+      shorteria:
+        ipv4_address: ${MARIADB_IP}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: ${INTERVAL}
+      timeout: ${TIMEOUT}
+      retries: ${RETRIES}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+  # ######################### APACHE ##########################
+  # # PURPOSE: apache web server                              #
+  # ###########################################################
+  shorteria:
+    container_name: ${APACHE_NAME}
+    hostname: ${APACHE_NAME}
+    build: ${APACHE_BUILD}
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    ports:
+      - "13333:13333"
+    volumes:
+      - ${APACHE_PROJECT}:/opt/shorteria
+      - ${LOCALTIME}
+      - ${TIMEZONE}
+    networks:
+      shorteria:
+        ipv4_address: ${APACHE_IP}
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/healthcheck.sh"]
+      interval: ${INTERVAL}
+      timeout: ${TIMEOUT}
+      retries: ${RETRIES}
+
+networks:
+  shorteria:
+    name: shorteria_network
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.10.133.0/24"

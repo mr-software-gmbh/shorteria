@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'database'          => [
+        'host'     => 'shorteria_mariadb',
+        'name'     => 'your_database_name',
+        'user'     => 'your_database_user',
+        'password' => 'your_database_password'
+    ],
+    // example secure und unique token NdRgUkXp2r5u8x/A?D(G+KbPeShVmYq3
+    'authToken' => 'a secure and unique auth token',
+    // number of digits after / in domain -> e.g. https://shorteria.de/XXXX
+    'shortUrlLength' => 4,
+    // redirect to this page if error happens or page not found
+    'errorRedirectPage' => 'https://your-company-url-here.com',
+    'cors'              => [
+        // example: http://localhost:8000 that will only allow request originated from this url
+        'allowOrigin'   => '*',
+        'allowMethods'  => ['GET', 'POST'],
+        'allowHeaders'  => ['Content-Type', 'Authorization', 'User-Agent', 'Cache-Control'],
+        'exposeHeaders' => ['Link', 'Content-Length', 'Content-Range'],
+        // seconds
+        'maxAge'        => 600
+    ]
+];

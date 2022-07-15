@@ -1,0 +1,5 @@
+.idea
+config.php
+.php-cs-fixer.cache
+vendor
+build/mariadb/data
